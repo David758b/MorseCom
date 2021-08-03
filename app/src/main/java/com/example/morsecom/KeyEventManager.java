@@ -34,7 +34,7 @@ public class KeyEventManager {
                 break;
 
             //Button A
-            case KeyEvent.KEYCODE_BUTTON_B: {printWord(activity);}
+            case KeyEvent.KEYCODE_BUTTON_B: {appendWord(activity);}
                 break;
 
             case KeyEvent.KEYCODE_BUTTON_X: {addLetter();}
@@ -43,10 +43,18 @@ public class KeyEventManager {
 
     }
 
-    private void printWord(MainActivity activity) {
+    private void appendWord(MainActivity activity) {
+
+        StringBuilder activitytext = new StringBuilder();
+        activitytext.append(activity.textfield.getText().toString() + " " );
         System.out.println("Print word");
         System.out.println();
-        for (int j = 0; j < wordprint.size(); j++) {System.out.print(wordprint.get(j));}
+        for (int j = 0; j < wordprint.size(); j++) {
+            System.out.print(wordprint.get(j));
+            activitytext.append(wordprint.get(j));
+        }
+        String finaltext = activitytext.toString();
+        activity.textfield.setText(finaltext);
         System.out.println();
         wordprint = new ArrayList<Character>(); // clears wordprint
     }

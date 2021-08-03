@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        keyEventManager.handleEvent(keyCode);
+        keyEventManager.handleEvent(keyCode, this);
 
         return super.onKeyDown(keyCode, event);
     }
@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity{
         }
         return null;
     }
+
+
 
 
 }
