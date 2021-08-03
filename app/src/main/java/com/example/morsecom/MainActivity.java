@@ -5,14 +5,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.InputDevice;
+import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
  * https://developer.android.com/guide/input */
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
-    TextView textfield;
+    TextView sendingText, messageHeader;
+
     InputDevice switchJoyCon;
     KeyEventManager keyEventManager;
 
@@ -24,13 +28,16 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textfield = findViewById(R.id.textview);
+        messageHeader = findViewById(R.id.messageHeader);
+        sendingText = findViewById(R.id.sendingText);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         keyEventManager = new KeyEventManager(vibrator);
         switchJoyCon = getRightNintendoSwitchJoyCon();
         System.out.println(switchJoyCon.getName());
 
+
     }
+
 
 
     /**
@@ -40,7 +47,8 @@ public class MainActivity extends AppCompatActivity{
      * @return boolean
      */
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+
 
         keyEventManager.handleEvent(keyCode, this);
 
@@ -88,8 +96,6 @@ public class MainActivity extends AppCompatActivity{
         }
         return null;
     }
-
-
 
 
 }

@@ -1,7 +1,5 @@
 package com.example.morsecom;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Vibrator;
 import android.view.KeyEvent;
 import java.util.ArrayList;
@@ -14,10 +12,10 @@ public class KeyEventManager {
     // todo --> apparently i could not find a way to make the controller it self vibrate, so
     //  i will just make the phone vibrate
     Vibrator vibrator;
-    StringBuilder word = new StringBuilder();
-    ArrayList<Character> wordprint = new ArrayList<Character>();
-    ArrayList<String> fullword = new ArrayList<>();
-    String ord;
+    StringBuilder morseLetter = new StringBuilder(); // contains the ls combination of a letter
+    ArrayList<Character> word = new ArrayList<Character>(); // full word
+    ArrayList<String> morseLetterSentence = new ArrayList<>();
+    String morseLetterCombination;
 
     public KeyEventManager(Vibrator v){vibrator = v;}
 
@@ -39,6 +37,9 @@ public class KeyEventManager {
 
             case KeyEvent.KEYCODE_BUTTON_X: {addLetter();}
                 break;
+
+            // "+" Button
+            case KeyEvent.KEYCODE_BUTTON_START:{appendSpace(activity);}
         }
 
     }
@@ -46,149 +47,160 @@ public class KeyEventManager {
     private void appendWord(MainActivity activity) {
 
         StringBuilder activitytext = new StringBuilder();
-        activitytext.append(activity.textfield.getText().toString() + " " );
+        activitytext.append(activity.sendingText.getText().toString());
         System.out.println("Print word");
         System.out.println();
-        for (int j = 0; j < wordprint.size(); j++) {
-            System.out.print(wordprint.get(j));
-            activitytext.append(wordprint.get(j));
+        for (int j = 0; j < word.size(); j++) {
+            System.out.print(word.get(j));
+            activitytext.append(word.get(j));
         }
         String finaltext = activitytext.toString();
-        activity.textfield.setText(finaltext);
+        activity.sendingText.setText(finaltext);
         System.out.println();
-        wordprint = new ArrayList<Character>(); // clears wordprint
+        word = new ArrayList<Character>(); // clears wordprint
     }
 
     private void shortMorse() {
         System.out.println("Short");
         vibrator.vibrate(300);
-        word.append("S");
+        morseLetter.append("S");
     }
 
     private void longMorse() {
         System.out.println("Long");
         vibrator.vibrate(1000);
-        word.append("L");
+        morseLetter.append("L");
     }
 
     private void addLetter() {
-        ord = word.toString();
+        morseLetterCombination = morseLetter.toString();
         System.out.println("Add letter");
         //PRINT OG TILFØJ BOGSTAV
-        switch (ord){
+        switch (morseLetterCombination){
             case "SL" :
-                wordprint.add('A');
+                word.add('A');
                 System.out.print("A");
                 break;
             case "LSSS" :
-                wordprint.add('B');
+                word.add('B');
                 System.out.print("B");
                 break;
             case "LSLS" :
-                wordprint.add('C');
+                word.add('C');
                 System.out.print("C");
                 break;
             case "LSS" :
-                wordprint.add('D');
+                word.add('D');
                 System.out.print("D");
                 break;
             case "S" :
-                wordprint.add('E');
+                word.add('E');
                 System.out.print("E");
                 break;
             case "SSLS" :
-                wordprint.add('F');
+                word.add('F');
                 System.out.print("F");
                 break;
             case "LLS" :
-                wordprint.add('G');
+                word.add('G');
                 System.out.print("G");
                 break;
             case "SSSS" :
-                wordprint.add('H');
+                word.add('H');
                 System.out.print("H");
                 break;
             case "SS" :
-                wordprint.add('I');
+                word.add('I');
                 System.out.print("I");
                 break;
             case "SLLL" :
-                wordprint.add('J');
+                word.add('J');
                 System.out.print("J");
                 break;
             case "LSL" :
-                wordprint.add('K');
+                word.add('K');
                 System.out.print("K");
                 break;
             case "SLSS" :
-                wordprint.add('L');
+                word.add('L');
                 System.out.print("L");
                 break;
             case "LL" :
-                wordprint.add('M');
+                word.add('M');
                 System.out.print("M");
                 break;
             case "LS" :
-                wordprint.add('N');
+                word.add('N');
                 System.out.print("N");
                 break;
             case "LLL" :
-                wordprint.add('O');
+                word.add('O');
                 System.out.print("O");
                 break;
             case "SLLS" :
-                wordprint.add('P');
+                word.add('P');
                 System.out.print("P");
                 break;
             case "LLSL" :
-                wordprint.add('Q');
+                word.add('Q');
                 System.out.print("Q");
                 break;
             case "SLS" :
-                wordprint.add('R');
+                word.add('R');
                 System.out.print("R");
                 break;
             case "SSS" :
-                wordprint.add('S');
+                word.add('S');
                 System.out.print("S");
                 break;
             case "L" :
-                wordprint.add('T');
+                word.add('T');
                 System.out.print("T");
                 break;
             case "SSL" :
-                wordprint.add('U');
+                word.add('U');
                 System.out.print("U");
                 break;
             case "SSSL" :
-                wordprint.add('V');
+                word.add('V');
                 System.out.print("V");
                 break;
             case "SLL" :
-                wordprint.add('W');
+                word.add('W');
                 System.out.print("W");
                 break;
             case "LSSL" :
-                wordprint.add('X');
+                word.add('X');
                 System.out.print("X");
                 break;
             case "LSLL" :
-                wordprint.add('Y');
+                word.add('Y');
                 System.out.print("Y");
                 break;
             case "LLSS" :
-                wordprint.add('Z');
+                word.add('Z');
                 System.out.print("Z");
                 break;
 
         }
 
         //TILFØJ ORD OG NULSTIL ORD
-        fullword.add(ord);
+        morseLetterSentence.add(morseLetterCombination);
         System.out.println("");
-        word.setLength(0);
+        morseLetter.setLength(0);
     }
 
+    private String charArrayListToString(ArrayList<Character> characterArrayList){
+
+        StringBuilder builder = new StringBuilder();
+        for (Character character: characterArrayList) {builder.append(character);}
+        return builder.toString();
+    }
+
+    public void appendSpace(MainActivity activity){
+        System.out.println("Space");
+        activity.sendingText.append(" ");
+    }
 
 }
 
