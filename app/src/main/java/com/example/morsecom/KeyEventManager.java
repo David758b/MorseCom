@@ -1,5 +1,7 @@
 package com.example.morsecom;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Vibrator;
 import android.view.KeyEvent;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class KeyEventManager {
 
     public KeyEventManager(Vibrator v){vibrator = v;}
 
-    public void handleEvent(int keycode){
+    public void handleEvent(int keycode, MainActivity activity){
 
         //apparently it thinks that button A is button B so for now i switched their places
         switch (keycode){
@@ -32,7 +34,7 @@ public class KeyEventManager {
                 break;
 
             //Button A
-            case KeyEvent.KEYCODE_BUTTON_B: {printWord();}
+            case KeyEvent.KEYCODE_BUTTON_B: {printWord(activity);}
                 break;
 
             case KeyEvent.KEYCODE_BUTTON_X: {addLetter();}
@@ -41,14 +43,12 @@ public class KeyEventManager {
 
     }
 
-    private void printWord() {
+    private void printWord(MainActivity activity) {
         System.out.println("Print word");
         System.out.println();
-        for (int j = 0; j < wordprint.size(); j++) {
-            System.out.print(wordprint.get(j));
-
-        }
+        for (int j = 0; j < wordprint.size(); j++) {System.out.print(wordprint.get(j));}
         System.out.println();
+        wordprint = new ArrayList<Character>(); // clears wordprint
     }
 
     private void shortMorse() {
