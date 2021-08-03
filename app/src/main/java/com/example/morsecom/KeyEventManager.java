@@ -2,6 +2,10 @@ package com.example.morsecom;
 
 import android.os.Vibrator;
 import android.view.KeyEvent;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+
 import java.util.ArrayList;
 
 /**
@@ -47,7 +51,8 @@ public class KeyEventManager {
     private void appendWord(MainActivity activity) {
 
         StringBuilder activitytext = new StringBuilder();
-        activitytext.append(activity.sendingText.getText().toString());
+
+        activitytext.append(activity.getSendingFragmenttext());
         System.out.println("Print word");
         System.out.println();
         for (int j = 0; j < word.size(); j++) {
@@ -55,7 +60,8 @@ public class KeyEventManager {
             activitytext.append(word.get(j));
         }
         String finaltext = activitytext.toString();
-        activity.sendingText.setText(finaltext);
+        activity.changeSendingFragmentTextView(finaltext);
+        //activity.sendingText.setText(finaltext);
         System.out.println();
         word = new ArrayList<Character>(); // clears wordprint
     }
@@ -199,7 +205,8 @@ public class KeyEventManager {
 
     public void appendSpace(MainActivity activity){
         System.out.println("Space");
-        activity.sendingText.append(" ");
+        activity.appendToSendingFragmentTextView(" ");
+      //  activity.sendingText.append(" ");
     }
 
 }

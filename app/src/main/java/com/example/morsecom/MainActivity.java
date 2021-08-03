@@ -1,6 +1,12 @@
 package com.example.morsecom;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -15,10 +21,14 @@ import android.widget.TextView;
  * https://developer.android.com/guide/input */
 public class MainActivity extends AppCompatActivity {
 
-    TextView sendingText, messageHeader;
+    //todo skal ikke være her
+    TextView sendingText;
 
+    ViewPager viewPager;
     InputDevice switchJoyCon;
     KeyEventManager keyEventManager;
+    Fragment recivefragment, sendfragment;
+
 
     // todo --> apparently i could not find a way to make the controller it self vibrate, so
     //  i will just make the phone vibrate
@@ -28,12 +38,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        messageHeader = findViewById(R.id.messageHeader);
-        sendingText = findViewById(R.id.sendingText);
+        viewPager = findViewById(R.id.viewpager);
+        recivefragment = new RecieveMessageFragment();
+        sendfragment = new SendingMessageFragment();
+      //  messageHeader = findViewById(R.id.messageHeader);
+      //  sendingText = findViewById(R.id.sendingText);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         keyEventManager = new KeyEventManager(vibrator);
         switchJoyCon = getRightNintendoSwitchJoyCon();
         System.out.println(switchJoyCon.getName());
+
+        viewPager.setAdapter(new viewpagerAdapter(getSupportFragmentManager()));
 
 
     }
@@ -47,10 +62,13 @@ public class MainActivity extends AppCompatActivity {
      * @return boolean
      */
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //todo home button. could maybe be used to clear the sent text
+        //keyCode == KeyEvent.KEYCODE_BUTTON_MODE)
 
-
+        System.out.println(event.getKeyCode());
         keyEventManager.handleEvent(keyCode, this);
+
 
         return super.onKeyDown(keyCode, event);
     }
@@ -96,6 +114,53 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    private class viewpagerAdapter extends FragmentPagerAdapter{
+
+
+        public viewpagerAdapter(@NonNull FragmentManager fm) {super(fm);}
+
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+
+            Fragment f = null;
+
+            switch (position){
+                case 0: f = sendfragment;
+                    break;
+                case 1: f = recivefragment;
+                    break;
+                default:{
+                    f = sendfragment;
+                    System.out.println("Pageviewer error");
+                }
+                    break;
+
+            }
+            return f;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
+    public void changeSendingFragmentTextView(String string){
+        ((TextView)sendfragment.getView().findViewById(R.id.sendingText)).setText(string);
+    }
+
+    public void appendToSendingFragmentTextView(String string){
+        ((TextView)sendfragment.getView().findViewById(R.id.sendingText)).append(string);
+    }
+
+    public String getSendingFragmenttext(){
+        return ((TextView)sendfragment.getView().findViewById(R.id.sendingText)).getText().toString();
+    }
+
+
 
 
 }
