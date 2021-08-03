@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity{
 
     TextView textfield;
     InputDevice switchJoyCon;
+    KeyEventManager keyEventManager;
 
     // todo --> apparently i could not find a way to make the controller it self vibrate, so
     //  i will just make the phone vibrate
@@ -25,20 +26,12 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         textfield = findViewById(R.id.textview);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        keyEventManager = new KeyEventManager(vibrator);
         switchJoyCon = getRightNintendoSwitchJoyCon();
         System.out.println(switchJoyCon.getName());
 
-
-        //Checks if the key codes for button A,B,X,Y are supported by the game controller
-        boolean[] supportedInputs = switchJoyCon.hasKeys(
-                KeyEvent.KEYCODE_BUTTON_A,
-                KeyEvent.KEYCODE_BUTTON_X,
-                KeyEvent.KEYCODE_BUTTON_Y,
-                KeyEvent.KEYCODE_BUTTON_B);
-
-
     }
-    
+
 
     /**
      * method that listens for keyevents
@@ -49,25 +42,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        //apparently it thinks that button A is button B so for now i switched their places
-        switch (keyCode){
-            case KeyEvent.KEYCODE_BUTTON_A: {
-                System.out.println("button B ");
-            }
-            break;
-            case KeyEvent.KEYCODE_BUTTON_B: System.out.println("button A");
-                break;
-            case KeyEvent.KEYCODE_BUTTON_X: {
-                System.out.println("button X");
-                vibrator.vibrate(300);
-            }
-            break;
-            case KeyEvent.KEYCODE_BUTTON_Y: {
-                System.out.println("button Y");
-                vibrator.vibrate(1000);
-            }
-            break;
-        }
+        keyEventManager.handleEvent(keyCode);
 
         return super.onKeyDown(keyCode, event);
     }
