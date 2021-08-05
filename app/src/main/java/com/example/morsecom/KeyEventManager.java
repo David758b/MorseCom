@@ -52,7 +52,7 @@ public class KeyEventManager {
 
         StringBuilder activitytext = new StringBuilder();
 
-        activitytext.append(activity.getSendingFragmenttext());
+        //activitytext.append(activity.getSendingFragmenttext());
         System.out.println("Print word");
         System.out.println();
         for (int j = 0; j < word.size(); j++) {
@@ -60,7 +60,7 @@ public class KeyEventManager {
             activitytext.append(word.get(j));
         }
         String finaltext = activitytext.toString();
-        activity.changeSendingFragmentTextView(finaltext);
+       // activity.changeSendingFragmentTextView(finaltext);
         //activity.sendingText.setText(finaltext);
         System.out.println();
         word = new ArrayList<Character>(); // clears wordprint
@@ -205,7 +205,7 @@ public class KeyEventManager {
 
     public void appendSpace(MainActivity activity){
         System.out.println("Space");
-        activity.appendToSendingFragmentTextView(" ");
+        //activity.appendToSendingFragmentTextView(" ");
       //  activity.sendingText.append(" ");
     }
 

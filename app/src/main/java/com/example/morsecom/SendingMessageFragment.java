@@ -22,6 +22,4 @@ public class SendingMessageFragment extends Fragment {
         return rod;
     }
 
-
-    public TextView getSendingText() {return sendingText;}
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/sendingMessageFragment">
+
+    <fragment
+        android:id="@+id/sendingMessageFragment"
+        android:name="com.example.morsecom.SendingMessageFragment"
+        android:label="SendingMessageFragment"
+        tools:layout="@layout/sendingmessage_fragment">
+        <action
+            android:id="@+id/action_sendingMessageFragment_to_testfragment"
+            app:destination="@id/RecievemessageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/RecievemessageFragment"
+        android:name="com.example.morsecom.RecieveMessageFragment"
+        android:label="testfragment"
+        tools:layout="@layout/testlayout"/>
+</navigation>

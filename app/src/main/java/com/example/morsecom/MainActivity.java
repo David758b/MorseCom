@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
@@ -13,21 +15,26 @@ import android.os.Vibrator;
 import android.view.InputDevice;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 /**
  * https://developer.android.com/guide/input */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     //todo skal ikke være her
     TextView sendingText;
 
-    ViewPager viewPager;
-    InputDevice switchJoyCon;
-    KeyEventManager keyEventManager;
-    Fragment recivefragment, sendfragment;
+    private ViewPager viewPager;
+    private InputDevice switchJoyCon;
+    private KeyEventManager keyEventManager;
+    private NavController navController;
+    private BottomNavigationView bottomNavigationView;
+    private Fragment recivefragment, sendfragment, testfragment;
 
 
     // todo --> apparently i could not find a way to make the controller it self vibrate, so
@@ -38,17 +45,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewPager = findViewById(R.id.viewpager);
-        recivefragment = new RecieveMessageFragment();
-        sendfragment = new SendingMessageFragment();
-      //  messageHeader = findViewById(R.id.messageHeader);
-      //  sendingText = findViewById(R.id.sendingText);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         keyEventManager = new KeyEventManager(vibrator);
         switchJoyCon = getRightNintendoSwitchJoyCon();
-        System.out.println(switchJoyCon.getName());
 
-        viewPager.setAdapter(new viewpagerAdapter(getSupportFragmentManager()));
+        NavHostFragment navHostFragment =(NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navHost);
+        navController = navHostFragment.getNavController();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navmenu);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
 
 
     }
@@ -65,11 +71,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //todo home button. could maybe be used to clear the sent text
         //keyCode == KeyEvent.KEYCODE_BUTTON_MODE)
-
         System.out.println(event.getKeyCode());
         keyEventManager.handleEvent(keyCode, this);
-
-
         return super.onKeyDown(keyCode, event);
     }
 
@@ -115,53 +118,21 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    private class viewpagerAdapter extends FragmentPagerAdapter{
 
 
-        public viewpagerAdapter(@NonNull FragmentManager fm) {super(fm);}
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-
-            Fragment f = null;
-
-            switch (position){
-                case 0: f = sendfragment;
-                    break;
-                case 1: f = recivefragment;
-                    break;
-                default:{
-                    f = sendfragment;
-                    System.out.println("Pageviewer error");
-                }
-                    break;
-
-            }
-            return f;
+        if(item.getItemId() == R.id.navItemSend){
+            navController.navigate(R.id.sendingMessageFragment);
+        }else if(item.getItemId() == R.id.navItemRecieve){
+            navController.navigate(R.id.RecievemessageFragment);
         }
 
-        @Override
-        public int getCount() {
-            return 2;
-        }
+
+
+        return false;
     }
-
-    public void changeSendingFragmentTextView(String string){
-        ((TextView)sendfragment.getView().findViewById(R.id.sendingText)).setText(string);
-    }
-
-    public void appendToSendingFragmentTextView(String string){
-        ((TextView)sendfragment.getView().findViewById(R.id.sendingText)).append(string);
-    }
-
-    public String getSendingFragmenttext(){
-        return ((TextView)sendfragment.getView().findViewById(R.id.sendingText)).getText().toString();
-    }
-
-
-
-
 }
 
