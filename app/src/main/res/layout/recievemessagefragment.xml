@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/columbiaBlue">
+    android:background="@drawable/bg">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/layout_group_chat"
@@ -23,7 +23,6 @@
 
 
 
-
     <View
         android:id="@+id/view3"
         android:layout_width="0dp"
@@ -31,7 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="119dp"
-        android:background="@drawable/ic_baseline_chat_bubble_24"
+        android:background="@drawable/ic_tekstfelt"
         app:layout_constraintBottom_toTopOf="@+id/chatbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,12 +38,12 @@
 
     <TextView
         android:id="@+id/testReceiveTextView"
-        android:layout_width="212dp"
-        android:layout_height="214dp"
+        android:layout_width="294dp"
+        android:layout_height="346dp"
         android:layout_marginTop="59dp"
-        android:text="TextView"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view3" />

@@ -1,5 +1,6 @@
 package com.example.morsecom;
 
+import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.view.KeyEvent;
 import android.widget.TextView;
@@ -20,10 +21,14 @@ public class KeyEventManager {
     ArrayList<Character> word = new ArrayList<Character>(); // full word
     ArrayList<String> morseLetterSentence = new ArrayList<>();
     String morseLetterCombination;
+    SharedPreferences prefs;
 
-    public KeyEventManager(Vibrator v){vibrator = v;}
+    public KeyEventManager(Vibrator v, SharedPreferences prefs){
+        vibrator = v;
+        this.prefs = prefs;
+    }
 
-    public void handleEvent(int keycode, MainActivity activity){
+    public void handleEvent(int keycode){
 
         //apparently it thinks that button A is button B so for now i switched their places
         switch (keycode){
@@ -36,23 +41,27 @@ public class KeyEventManager {
                 break;
 
             //Button A
-            case KeyEvent.KEYCODE_BUTTON_B: {appendWord(activity);}
+            case KeyEvent.KEYCODE_BUTTON_B: {appendWord();}
                 break;
 
             case KeyEvent.KEYCODE_BUTTON_X: {addLetter();}
                 break;
 
             // "+" Button
-            case KeyEvent.KEYCODE_BUTTON_START:{appendSpace(activity);}
+            case KeyEvent.KEYCODE_BUTTON_START:{appendSpace();}
+                break;
+
+            //if we want a clear button
+           // case KeyEvent.KEYCODE_BUTTON_R1: {prefs.edit().putString("sendingMessage", "").apply();}
         }
 
     }
 
-    private void appendWord(MainActivity activity) {
+    private void appendWord() {
 
         StringBuilder activitytext = new StringBuilder();
 
-        //activitytext.append(activity.getSendingFragmenttext());
+        activitytext.append(prefs.getString("sendingMessage", ""));
         System.out.println("Print word");
         System.out.println();
         for (int j = 0; j < word.size(); j++) {
@@ -60,8 +69,9 @@ public class KeyEventManager {
             activitytext.append(word.get(j));
         }
         String finaltext = activitytext.toString();
-       // activity.changeSendingFragmentTextView(finaltext);
-        //activity.sendingText.setText(finaltext);
+
+        prefs.edit().putString("sendingMessage", finaltext).apply();
+
         System.out.println();
         word = new ArrayList<Character>(); // clears wordprint
     }
@@ -196,18 +206,165 @@ public class KeyEventManager {
         morseLetter.setLength(0);
     }
 
-    private String charArrayListToString(ArrayList<Character> characterArrayList){
+
+    public void appendSpace(){
+        System.out.println("Space");
 
         StringBuilder builder = new StringBuilder();
-        for (Character character: characterArrayList) {builder.append(character);}
-        return builder.toString();
+        builder.append(prefs.getString("sendingMessage", "")).append(" ");
+
+
+
+        prefs.edit().putString("sendingMessage", builder.toString()).apply();
     }
 
-    public void appendSpace(MainActivity activity){
-        System.out.println("Space");
-        //activity.appendToSendingFragmentTextView(" ");
-      //  activity.sendingText.append(" ");
+
+    public void getUserWord(String word){
+        System.out.println(word);
+        ArrayList<String> userWordPrint = new ArrayList<>();
+
+
+        for (int i = 0; i < word.length(); i++) {
+            Character s = word.charAt(i);
+            switch (s){
+                case ' ':
+                    userWordPrint.add(".");
+                    break;
+                case 'a':
+                    userWordPrint.add("SL");
+                    break;
+                case 'b':
+                    userWordPrint.add("LSSS");
+                    break;
+                case 'c':
+                    userWordPrint.add("LSLS");
+                    break;
+                case 'd':
+                    userWordPrint.add("LSS");
+                    break;
+                case 'e':
+                    userWordPrint.add("S");
+                    break;
+                case 'f':
+                    userWordPrint.add("SSLS");
+                    break;
+                case 'g':
+                    userWordPrint.add("LLS");
+                    break;
+                case 'h':
+                    userWordPrint.add("SSSS");
+                    break;
+                case 'i':
+                    userWordPrint.add("SS");
+                    break;
+                case 'j':
+                    userWordPrint.add("SLLL");
+                    break;
+                case 'k':
+                    userWordPrint.add("LSL");
+                    break;
+
+                case 'l':
+                    userWordPrint.add("SLSS");
+                    break;
+                case 'm':
+                    userWordPrint.add("LL");
+                    break;
+                case 'n':
+                    userWordPrint.add("LS");
+                    break;
+                case 'o':
+                    userWordPrint.add("LLL");
+                    break;
+                case 'p':
+                    userWordPrint.add("SLLS");
+                    break;
+                case 'q':
+                    userWordPrint.add("LLSL");
+                    break;
+                case 'r':
+                    userWordPrint.add("SLS");
+                    break;
+                case 's':
+                    userWordPrint.add("SSS");
+                    break;
+                case 't':
+                    userWordPrint.add("L");
+                    break;
+                case 'u':
+                    userWordPrint.add("SSL");
+                    break;
+                case 'v':
+                    userWordPrint.add("SSSL");
+                    break;
+                case 'w':
+                    userWordPrint.add("SLL");
+                    break;
+                case 'x':
+                    userWordPrint.add("LSSL");
+                    break;
+                case 'y':
+                    userWordPrint.add("LSLL");
+                    break;
+                case 'z':
+                    userWordPrint.add("LLSS");
+                    break;
+            }
+
+        }
+
+        //Vibration
+        long timer = 0;
+        for (int i = 0; i < userWordPrint.size(); i++) {
+            String decode = userWordPrint.get(i);
+            if(i != 0) timer += 1000;
+            //ITERER OVER ORD OG GENSKAB I MORSE KODE
+            for (int j = 0; j < decode.length(); j++) {
+                Character stringParse = decode.charAt(j);
+                timer += 1000;
+
+                if(stringParse == 'S'){
+                    System.out.println("Short");
+                    new java.util.Timer().schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    vibrator.vibrate(300);
+                                }
+                            },
+                            500 + timer
+                    );
+
+
+                } else if (stringParse == 'L'){
+                    System.out.println("Long");
+                    new java.util.Timer().schedule(
+                            new java.util.TimerTask() {
+                                @Override
+                                public void run() {
+                                    vibrator.vibrate(1000);
+                                }
+                            },
+                            500 + timer
+                    );
+                } else {
+                    System.out.println("SPACE");
+                    try {
+                        Thread.sleep(1000);
+                        timer -= 1000;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+        }
     }
+
+
+
+
 
 }
 

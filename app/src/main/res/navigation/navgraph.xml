@@ -18,5 +18,5 @@
         android:id="@+id/RecievemessageFragment"
         android:name="com.example.morsecom.RecieveMessageFragment"
         android:label="testfragment"
-        tools:layout="@layout/testlayout"/>
+        tools:layout="@layout/recievemessagefragment"/>
 </navigation>
