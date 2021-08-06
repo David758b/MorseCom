@@ -52,7 +52,8 @@ public class KeyEventManager {
                 break;
 
             //if we want a clear button
-           // case KeyEvent.KEYCODE_BUTTON_R1: {prefs.edit().putString("sendingMessage", "").apply();}
+            case KeyEvent.KEYCODE_BUTTON_R1: {prefs.edit().putString("sendingMessage", "").apply();}
+            break;
         }
 
     }

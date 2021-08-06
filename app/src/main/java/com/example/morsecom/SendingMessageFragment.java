@@ -34,10 +34,5 @@ public class SendingMessageFragment extends Fragment{
         return rod;
     }
 
-    @Override
-    public void onPause() {
-        prefs.edit().putString("sendingMessage", "").apply();
-        super.onPause();
-    }
 
 }
