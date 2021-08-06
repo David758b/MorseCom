@@ -20,9 +20,7 @@ public class SendingMessageFragment extends Fragment{
     public View onCreateView(LayoutInflater i, ViewGroup Container, Bundle SavedInstanceState){
 
         View rod = i.inflate(R.layout.sendingmessage_fragment, Container, false);
-        messageHeader = rod.findViewById(R.id.messageHeader);
         sendingText = rod.findViewById(R.id.sendingText);
-        swipeRightGuide = rod.findViewById(R.id.swiperighttext);
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         changeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override

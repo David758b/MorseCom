@@ -22,31 +22,40 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
+    <View
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:background="@drawable/ic_logo_tekst"
+        app:layout_constraintBottom_toTopOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04" />
 
     <View
         android:id="@+id/view3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="119dp"
-        android:background="@drawable/ic_tekstfelt"
+        android:layout_width="403dp"
+        android:layout_height="387dp"
+        android:background="@drawable/ic_baseline_chat_bubble_242"
         app:layout_constraintBottom_toTopOf="@+id/chatbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_group_chat" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496" />
 
     <TextView
         android:id="@+id/testReceiveTextView"
-        android:layout_width="294dp"
-        android:layout_height="346dp"
-        android:layout_marginTop="59dp"
+        android:layout_width="268dp"
+        android:layout_height="240dp"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        app:layout_constraintVertical_bias="0.285" />
 
     <View
         android:id="@+id/view"

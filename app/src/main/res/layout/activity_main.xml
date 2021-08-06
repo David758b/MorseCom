@@ -8,6 +8,15 @@
     tools:modelViewController="MainActivity"
     android:scaleType = "centerCrop">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navmenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="@color/peachOrange"
+        app:menu="@menu/navmenu"
+        tools:visibility="visible" />
 
     <fragment
         android:id="@+id/navHost"
@@ -15,20 +24,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/navmenu"
+        android:layout_marginBottom="0dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/navgraph" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navmenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:background="@color/black"
-        app:itemIconTint="@color/columbiaBlue"
-        app:itemTextColor="@color/columbiaBlue"
-        app:menu="@menu/navmenu"
-        tools:visibility="visible" />
+
 
 
 </RelativeLayout>

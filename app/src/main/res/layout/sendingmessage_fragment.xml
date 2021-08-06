@@ -4,50 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/bg">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/layout_group_chat"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <View
+        android:id="@+id/logo"
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:background="@drawable/ic_logo_tekst"
+
+        app:layout_constraintBottom_toTopOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="403dp"
+        android:layout_height="387dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ic_baseline_chat_bubble_242"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_group_chat"
+        app:layout_constraintVertical_bias="0.459" />
 
     <TextView
         android:id="@+id/sendingText"
-        android:layout_width="316dp"
-        android:layout_height="503dp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="19dp"
-        android:background="@drawable/border"
-        android:gravity="top|left"
-        android:lines="10"
-        android:maxLines="15"
-        android:minLines="5"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/swiperighttext"
+        android:layout_width="268dp"
+        android:layout_height="240dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:visibility="visible"
+
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messageHeader" />
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        app:layout_constraintVertical_bias="0.299" />
 
-    <TextView
-        android:id="@+id/messageHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="41dp"
-        android:text="Message"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/sendingText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/swiperighttext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="29dp"
-        android:text="SWIPE RIGHT TO REPLY"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/sendingText"
-        app:layout_constraintTop_toBottomOf="@+id/sendingText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

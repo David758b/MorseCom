@@ -2,6 +2,7 @@ package com.example.morsecom;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       // Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(myToolbar);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 
